@@ -7,16 +7,14 @@ class UserController {
     async store ({ request, response, auth }) {
         const data = request.only(['name', 'email', 'password'])
 
-        console.log(data)
-
         const teamsQuery = Invite.query().where('email', data.email)
 
         const teams = await teamsQuery.pluck('team_id')
 
         if (teams.lenght === 0) {
             return response
-                    .status(401)
-                    .send({ message : "Você não foi convidado para um time."})
+                .status(401)
+                .send({ message: 'Você não foi convidado para um time.' })
         }
 
         const user = await User.create(data)
