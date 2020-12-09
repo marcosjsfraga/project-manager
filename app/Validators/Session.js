@@ -9,7 +9,7 @@ class Session {
     get rules () {
         return {
             // validation rules
-            email: 'required|email|unique:users',
+            email: 'required|email',
             password: 'required'
         }
     }
