@@ -32,4 +32,12 @@ Route.group(() => {
         .validator(new Map([[['projects.store'], ['Project']]]))
         .middleware('can:projects_create')
 
+    // -- Member routes
+    Route.get('members', 'MemberController.index')
+    Route.put('members/:id', 'MemberController.update')
+        .middleware('is:administrator')
+
+    // -- Permission routes
+    Route.get('permissions', 'PermissionController.show')
+
 }).middleware(['auth', 'team'])
