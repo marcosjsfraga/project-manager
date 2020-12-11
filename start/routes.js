@@ -5,6 +5,8 @@ const Route = use('Route')
 // -- Session routes
 Route.post('sessions', 'SessionController.store').validator('Session')
 Route.post('users', 'UserController.store').validator('User')
+Route.get('users', 'UserController.index')
+
 
 Route.group(() => {
 

@@ -1,11 +1,14 @@
 'use strict'
 
-/** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
 class UserSchema extends Schema {
+    // static get connection () {
+    //     return 'pg'
+    // }
+
     up () {
-        this.create('users', (table) => {
+        this.withSchema('public').create('users', (table) => {
             table.increments()
             table.string('name', 60).notNullable()
             table.string('email', 254).notNullable().unique()
@@ -15,7 +18,7 @@ class UserSchema extends Schema {
     }
 
     down () {
-        this.drop('users')
+        this.withSchema('public').drop('users')
     }
 }
 

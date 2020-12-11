@@ -1,11 +1,10 @@
 'use strict'
 
-/** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
 class TeamSchema extends Schema {
     up () {
-        this.create('teams', (table) => {
+        this.withSchema('public').create('teams', (table) => {
             table.increments()
             table.string('name', 60)
             table
@@ -22,7 +21,7 @@ class TeamSchema extends Schema {
     }
 
     down () {
-        this.drop('teams')
+        this.withSchema('public').drop('teams')
     }
 }
 

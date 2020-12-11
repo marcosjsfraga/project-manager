@@ -4,7 +4,7 @@ const Schema = use('Schema')
 
 class PermissionRoleTableSchema extends Schema {
   up () {
-    this.create('permission_role', table => {
+    this.withSchema('public').create('permission_role', table => {
       table.increments()
       table.integer('permission_id').unsigned().index()
       table.foreign('permission_id').references('id').on('permissions').onDelete('cascade')
@@ -15,7 +15,7 @@ class PermissionRoleTableSchema extends Schema {
   }
 
   down () {
-    this.drop('permission_role')
+    this.withSchema('public').drop('permission_role')
   }
 }
 

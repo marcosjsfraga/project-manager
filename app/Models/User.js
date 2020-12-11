@@ -1,12 +1,28 @@
 'use strict'
 
+const config = use('Config')
 const Model = use('Model')
-
 const Hash = use('Hash')
 
 class User extends Model {
+    // static get connection () {
+    //     return 'demo'
+    // }
+
+    // static get connection() {
+    //     return this.useConnection !== "undefined" ?
+    //            this.useConnection :
+    //            config.get('database.connection')
+    // }
+
+    // static setUseConnection(access) {
+    //     return access
+    // }
+
     static boot () {
         super.boot()
+
+        this.addTrait('DbConnection');
 
         this.addHook('beforeSave', async (userInstance) => {
             if (userInstance.dirty.password) {

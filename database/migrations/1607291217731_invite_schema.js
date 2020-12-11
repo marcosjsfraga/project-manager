@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class InviteSchema extends Schema {
     up () {
-        this.create('invites', (table) => {
+        this.withSchema('public').create('invites', (table) => {
             table.increments()
             table
                 .integer('user_id')
@@ -29,7 +29,7 @@ class InviteSchema extends Schema {
     }
 
     down () {
-        this.drop('invites')
+        this.withSchema('public').drop('invites')
     }
 }
 

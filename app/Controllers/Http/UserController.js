@@ -4,6 +4,14 @@ const User = use('App/Models/User')
 const Invite = use('App/Models/Invite')
 
 class UserController {
+
+    async index() {
+        // User.useConnection = "pg"
+        const users = await User.dbConnection('demo').all()
+
+        return users
+    }
+
     async store ({ request, response, auth }) {
         const data = request.only(['name', 'email', 'password'])
 

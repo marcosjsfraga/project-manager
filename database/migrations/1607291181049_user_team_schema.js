@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class UserTeamSchema extends Schema {
     up () {
-        this.create('user_teams', (table) => {
+        this.withSchema('public').create('user_teams', (table) => {
             table.increments()
             table
                 .integer('user_id')
@@ -28,7 +28,7 @@ class UserTeamSchema extends Schema {
     }
 
     down () {
-        this.drop('user_teams')
+        this.withSchema('public').drop('user_teams')
     }
 }
 
