@@ -5,24 +5,35 @@ const Model = use('Model')
 const Hash = use('Hash')
 
 class User extends Model {
-    // static get connection () {
-    //     return 'demo'
-    // }
 
-    // static get connection() {
-    //     return this.useConnection !== "undefined" ?
-    //            this.useConnection :
-    //            config.get('database.connection')
-    // }
+    // Connection
+    static get connection() {
+        config.set('database.pg.connection.database', 'projman_demo')
 
-    // static setUseConnection(access) {
-    //     return access
-    // }
+        return config.get('database.connection')
+        // return this.useConnection !== "undefined" ?
+        //        this.useConnection :
+        //        config.get('database.connection')
+    }
+    static setUseConnection(access) {
+        return access
+    }
+    // ./Connection
+
+    // Table
+    static get table () {
+        // return 'users'
+        return this.tableName !== "undefined"
+                ?this.tableName
+                :this.table
+    }
+    static setTableName () {
+        return 'users'
+    }
+    // ./Table
 
     static boot () {
         super.boot()
-
-        this.addTrait('DbConnection');
 
         this.addHook('beforeSave', async (userInstance) => {
             if (userInstance.dirty.password) {

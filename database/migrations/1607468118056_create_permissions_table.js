@@ -1,10 +1,11 @@
 'use strict'
 
+const Env = use('Env')
 const Schema = use('Schema')
 
 class PermissionsTableSchema extends Schema {
   up () {
-    this.withSchema('public').create('permissions', table => {
+    this.withSchema(Env.get('DB_SCHEMA', 'public')).create('permissions', table => {
       table.increments()
       table.string('slug').notNullable().unique()
       table.string('name').notNullable().unique()
@@ -14,7 +15,7 @@ class PermissionsTableSchema extends Schema {
   }
 
   down () {
-    this.withSchema('public').drop('permissions')
+    this.withSchema(Env.get('DB_SCHEMA', 'public')).drop('permissions')
   }
 }
 

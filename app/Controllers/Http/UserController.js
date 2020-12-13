@@ -1,23 +1,33 @@
 'use strict'
 
+const Database = use('Adonis/Src/Database')
 const User = use('App/Models/User')
 const Invite = use('App/Models/Invite')
 
 class UserController {
 
-    async index() {
-        // User.useConnection = "pg"
-        const users = await User.dbConnection('demo').all()
+    async index({ request }) {
+        const tenant_id = request.header('tenant_id')
+
+        // Set database connection
+        User.useConnection = tenant_id
+        User.tableName = 'public.users'
+
+        const users = await User.all()
 
         return users
     }
 
     async store ({ request, response, auth }) {
+        // const tenant_id = request.header('tenant_id')
         const data = request.only(['name', 'email', 'password'])
 
-        const teamsQuery = Invite.query().where('email', data.email)
+        // request.tenantId is setted in SetConnection Middleware
+        User.useConnection = request.tenantId
 
         const teams = await teamsQuery.pluck('team_id')
+
+        const teamsQuery = Invite.query().where('email', data.email)
 
         if (teams.lenght === 0) {
             return response

@@ -1,11 +1,12 @@
 'use strict'
 
-/** @type {import('@adonisjs/lucid/src/Schema')} */
+
+const Env = use('Env')
 const Schema = use('Schema')
 
 class TokensSchema extends Schema {
     up () {
-        this.withSchema('public').create('tokens', (table) => {
+        this.withSchema(Env.get('DB_SCHEMA', 'public')).create('tokens', (table) => {
             table.increments()
             table.integer('user_id').unsigned().references('id').inTable('users')
             table.string('token', 255).notNullable().unique().index()
