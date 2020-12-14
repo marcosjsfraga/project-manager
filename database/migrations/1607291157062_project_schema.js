@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class ProjectSchema extends Schema {
     up () {
-        this.withSchema(Env.get('DB_SCHEMA', 'public')).create('projects', (table) => {
+        this.create('projects', (table) => {
             table.increments()
             table.string('title').notNullable()
             table
@@ -21,7 +21,7 @@ class ProjectSchema extends Schema {
     }
 
     down () {
-        this.withSchema(Env.get('DB_SCHEMA', 'public')).drop('projects')
+        this.drop('projects')
     }
 }
 

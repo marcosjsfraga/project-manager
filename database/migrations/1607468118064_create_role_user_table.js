@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class RoleUserTableSchema extends Schema {
   up () {
-    this.withSchema(Env.get('DB_SCHEMA', 'public')).create('role_user_team', table => {
+    this.create('role_user_team', table => {
       table.increments()
       table.integer('role_id').unsigned().index()
       table.foreign('role_id').references('id').on('roles').onDelete('cascade')
@@ -16,7 +16,7 @@ class RoleUserTableSchema extends Schema {
   }
 
   down () {
-    this.withSchema(Env.get('DB_SCHEMA', 'public')).drop('role_user_team')
+    this.drop('role_user_team')
   }
 }
 

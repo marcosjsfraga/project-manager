@@ -22,9 +22,6 @@ class UserController {
         // const tenant_id = request.header('tenant_id')
         const data = request.only(['name', 'email', 'password'])
 
-        // request.tenantId is setted in SetConnection Middleware
-        User.useConnection = request.tenantId
-
         const teams = await teamsQuery.pluck('team_id')
 
         const teamsQuery = Invite.query().where('email', data.email)

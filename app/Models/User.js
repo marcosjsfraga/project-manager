@@ -1,5 +1,7 @@
 'use strict'
 
+const Env = use('Env')
+
 const config = use('Config')
 const Model = use('Model')
 const Hash = use('Hash')
@@ -8,14 +10,23 @@ class User extends Model {
 
     // Connection
     static get connection() {
-        config.set('database.pg.connection.database', 'projman_demo')
+
+        if (this.useDatabase !== undefined) {
+            console.log('-1-')
+            config.set('database.pg.connection.database', this.useDatabase)
+        } else {
+            console.log('-2-')
+            config.set('database.pg.connection.database', Env.get('DB_DATABASE', 'adonis'))
+        }
+
+        console.log(config.get('database.pg.connection.database'))
 
         return config.get('database.connection')
         // return this.useConnection !== "undefined" ?
         //        this.useConnection :
         //        config.get('database.connection')
     }
-    static setUseConnection(access) {
+    static setUseDatabase(access) {
         return access
     }
     // ./Connection

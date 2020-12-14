@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class PermissionsTableSchema extends Schema {
   up () {
-    this.withSchema(Env.get('DB_SCHEMA', 'public')).create('permissions', table => {
+    this.create('permissions', table => {
       table.increments()
       table.string('slug').notNullable().unique()
       table.string('name').notNullable().unique()
@@ -15,7 +15,7 @@ class PermissionsTableSchema extends Schema {
   }
 
   down () {
-    this.withSchema(Env.get('DB_SCHEMA', 'public')).drop('permissions')
+    this.drop('permissions')
   }
 }
 
